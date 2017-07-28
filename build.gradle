@@ -18,6 +18,17 @@ allprojects {
     }
 }
 
+ext {
+    compileSdkVersion = 25
+    buildToolsVersion = "25.0.0"
+    applicationId = "com.andfast.app"
+    minSdkVersion = 15
+    targetSdkVersion = 25
+    versionCode = 1
+    versionName = "v0.0.1(1707281741)"
+    supportVersion = '26.+'
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
