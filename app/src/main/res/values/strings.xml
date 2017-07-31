@@ -1,3 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">andfast</string>
+
+    <!-- 底部选项卡信息 -->
+    <string name="tab_name_home">首页</string>
+    <string name="tab_name_video">视频</string>
+    <string name="tab_name_my">我的</string>
 </resources>

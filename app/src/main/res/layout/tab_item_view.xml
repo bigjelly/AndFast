@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="3dp"
+                android:paddingTop="5dp">
+
+    <FrameLayout
+        android:id="@+id/fl_tab_img"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:id="@+id/tab_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="matrix"
+            android:src="@mipmap/tab_home"/>
+
+        <TextView
+            android:id="@+id/tab_notice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="9dp"
+            android:visibility="gone"/>
+    </FrameLayout>
+
+    <com.andfast.app.view.widget.SpacingTextView
+        android:id="@+id/tab_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fl_tab_img"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp"
+        android:gravity="center"
+        android:textColor="@drawable/tab_font_selector"
+        android:textSize="11dp"/>
+
+</RelativeLayout>
