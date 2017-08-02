@@ -1,5 +1,6 @@
 package com.andfast.app.view.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.andfast.app.util.LogUtils;
 
 /**
  * Created by mby on 17-7-31.
@@ -60,6 +63,21 @@ public abstract class BaseFragment extends Fragment {
         return mRoot;
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        LogUtils.d(TAG,"basefragment hidden");
+        if (hidden) {
+            hiddenFragment();
+        }else {
+            showFragmet();
+        }
+    }
+
+    protected void showFragmet() {}
+
+    protected  void hiddenFragment(){}
+
     protected abstract int getLayoutId();
 
     protected void onBindViewBefore(View root) {
@@ -80,6 +98,10 @@ public abstract class BaseFragment extends Fragment {
 
     protected void onRestartInstance(Bundle bundle) {
 
+    }
+
+    protected <T extends Activity> T getParentActivity(){
+        return (T) getActivity();
     }
 
     protected <T extends View> T findView(int viewId) {

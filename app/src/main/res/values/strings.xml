@@ -6,4 +6,8 @@
     <string name="tab_name_home">首页</string>
     <string name="tab_name_video">视频</string>
     <string name="tab_name_my">我的</string>
+
+    <!-- home tab -->
+    <string name="tab_home_top">头条</string>
+    <string name="tab_home_hot">热门</string>
 </resources>

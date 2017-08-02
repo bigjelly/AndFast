@@ -1,22 +1,34 @@
 package com.andfast.app.view.home;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import com.andfast.app.R;
 import com.andfast.app.util.LogUtils;
-import com.andfast.app.view.base.BaseFragment;
+import com.andfast.app.view.base.BaseMainFragment;
+import com.andfast.app.view.common.TabManager;
 import com.andfast.app.view.common.activity.MainActivity;
+import com.andfast.app.view.home.adapter.HomePageAdapter;
+import com.andfast.app.view.home.fragment.HomeHotFragment;
+import com.andfast.app.view.home.fragment.HomeTopFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mby on 17-7-31.
  */
 
-public class HomeFragment extends BaseFragment implements MainActivity.TabReselectListener {
+public class HomeFragment extends BaseMainFragment implements TabManager.TabReselectListener {
 
     private static final String TAG = "HomeFragment";
 
-    MainActivity mMainActivity;
+    private TabLayout mTabLayout;
+    private ViewPager mViewPager;
+
+    private MainActivity mMainActivity;
 
     @Override
     protected int getLayoutId() {
@@ -24,22 +36,41 @@ public class HomeFragment extends BaseFragment implements MainActivity.TabResele
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mMainActivity = (MainActivity) this.getActivity();
-        mMainActivity.addTabReselectListener(this);
+    protected void initWidget(View root) {
+        super.initWidget(root);
+        TabManager.getInstance(getContext()).addTabReselectListener(this);
+        mTabLayout = findView(R.id.hometab);
+        mViewPager = findView(R.id.homeviewpager);
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 
     @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        LogUtils.d(TAG, "onHiddenChanged :" + hidden);
-        if (!hidden) {
-            mMainActivity.addTabReselectListener(this);
+    protected void initData() {
+        super.initData();
+        String[] titles = getResources().getStringArray(R.array.tabs_home);
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(new HomeTopFragment());
+        fragments.add(new HomeHotFragment());
+        HomePageAdapter adapter = new HomePageAdapter(this.getChildFragmentManager(),
+                fragments, titles);
+        mViewPager.setAdapter(adapter);
+    }
 
-        }else {
-            mMainActivity.removeTabReselectListener(this);
-        }
+    @Override
+    protected void showFragmet() {
+        super.showFragmet();
+        TabManager.getInstance(getContext()).addTabReselectListener(this);
+    }
+
+    @Override
+    public int getBarTitleString() {
+        return R.string.tab_name_home;
+    }
+
+    @Override
+    protected void hiddenFragment() {
+        super.hiddenFragment();
+        TabManager.getInstance(getContext()).removeTabReselectListener(this);
     }
 
     @Override

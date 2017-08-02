@@ -4,7 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        layout="@layout/view_bar"/>
     <FrameLayout
         android:id="@+id/realtabcontent"
         android:layout_width="match_parent"
@@ -21,7 +24,7 @@
         android:id="@+id/tl_main_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@android:color/darker_gray"
         app:tabBackground="?attr/selectableItemBackgroundBorderless"
         app:tabIndicatorHeight="0dp"
         app:tabMode="fixed"/>

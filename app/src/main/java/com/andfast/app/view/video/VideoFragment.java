@@ -1,15 +1,23 @@
 package com.andfast.app.view.video;
 
 import com.andfast.app.R;
-import com.andfast.app.view.base.BaseFragment;
+import com.andfast.app.view.base.BaseMainFragment;
+import com.andfast.app.view.common.activity.MainActivity;
 
 /**
  * Created by mby on 17-7-31.
  */
 
-public class VideoFragment extends BaseFragment{
+public class VideoFragment extends BaseMainFragment{
+    private MainActivity mMainActivity;
+
     @Override
     protected int getLayoutId() {
         return R.layout.frg_video;
+    }
+
+    @Override
+    public int getBarTitleString() {
+        return R.string.tab_name_video;
     }
 }

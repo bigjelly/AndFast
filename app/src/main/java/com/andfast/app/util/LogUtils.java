@@ -178,7 +178,7 @@ public class LogUtils {
         }
 
         if (sDebug) {
-            Log.v(ROOT_TAG, tag + ", " + msg);
+            Log.v(ROOT_TAG, "[ "+tag + " ]" + msg);
         }
 
         if (sAutoSave) {
@@ -198,7 +198,7 @@ public class LogUtils {
         }
 
         if (sDebug) {
-            Log.v(ROOT_TAG, tag + ", " + msg);
+            Log.v(ROOT_TAG, "[ "+tag + " ]" + msg);
         }
 
         log2File(tag, msg);
@@ -217,7 +217,7 @@ public class LogUtils {
         }
 
         if (sDebug) {
-            Log.v(ROOT_TAG, tag + ", " + msg, tr);
+            Log.v(ROOT_TAG, "[ "+tag + " ]" + msg, tr);
         }
 
         if (sAutoSave) {
@@ -242,7 +242,7 @@ public class LogUtils {
         }
 
         if (sDebug) {
-            Log.v(ROOT_TAG, tag + ", " + msg, tr);
+            Log.v(ROOT_TAG, "[ "+tag + " ]" + msg, tr);
         }
 
         if (null != tr) {
@@ -264,7 +264,7 @@ public class LogUtils {
         }
 
         if (sDebug) {
-            Log.d(ROOT_TAG, tag + ", " + msg);
+            Log.d(ROOT_TAG, "[ "+tag + " ]" + msg);
         }
 
         if (sAutoSave) {
@@ -284,7 +284,7 @@ public class LogUtils {
         }
 
         if (sDebug) {
-            Log.d(ROOT_TAG, tag + ", " + msg);
+            Log.d(ROOT_TAG, "[ "+tag + " ]" + msg);
         }
 
         log2File(tag, msg);
@@ -303,7 +303,7 @@ public class LogUtils {
         }
 
         if (sDebug) {
-            Log.d(ROOT_TAG, tag + ", " + msg, tr);
+            Log.d(ROOT_TAG, "[ "+tag + " ]" + msg, tr);
         }
 
         if (sAutoSave) {
@@ -328,7 +328,7 @@ public class LogUtils {
         }
 
         if (sDebug) {
-            Log.d(ROOT_TAG, tag + ", " + msg, tr);
+            Log.d(ROOT_TAG, "[ "+tag + " ]" + msg, tr);
         }
 
         if (null != tr) {
@@ -350,7 +350,7 @@ public class LogUtils {
         }
 
         if (sDebug) {
-            Log.i(ROOT_TAG, tag + ", " + msg);
+            Log.i(ROOT_TAG, "[ "+tag + " ]" + msg);
         }
 
         if (sAutoSave) {
@@ -370,7 +370,7 @@ public class LogUtils {
         }
 
         if (sDebug) {
-            Log.i(ROOT_TAG, tag + ", " + msg);
+            Log.i(ROOT_TAG, "[ "+tag + " ]" + msg);
         }
 
         log2File(tag, msg);
@@ -389,7 +389,7 @@ public class LogUtils {
         }
 
         if (sDebug) {
-            Log.i(ROOT_TAG, tag + ", " + msg, tr);
+            Log.i(ROOT_TAG, "[ "+tag + " ]" + msg, tr);
         }
 
         if (sAutoSave) {
@@ -414,7 +414,7 @@ public class LogUtils {
         }
 
         if (sDebug) {
-            Log.i(ROOT_TAG, tag + ", " + msg, tr);
+            Log.i(ROOT_TAG, "[ "+tag + " ]" + msg, tr);
         }
 
         if (null != tr) {
@@ -436,7 +436,7 @@ public class LogUtils {
         }
 
         if (sDebug) {
-            Log.w(ROOT_TAG, tag + ", " + msg);
+            Log.w(ROOT_TAG, "[ "+tag + " ]" + msg);
         }
 
         if (sAutoSave) {
@@ -456,7 +456,7 @@ public class LogUtils {
         }
 
         if (sDebug) {
-            Log.w(ROOT_TAG, tag + ", " + msg);
+            Log.w(ROOT_TAG, "[ "+tag + " ]" + msg);
         }
 
         log2File(tag, msg);
@@ -475,7 +475,7 @@ public class LogUtils {
         }
 
         if (sDebug) {
-            Log.w(ROOT_TAG, tag + ", " + msg, tr);
+            Log.w(ROOT_TAG, "[ "+tag + " ]" + msg, tr);
         }
 
         if (sAutoSave) {
@@ -499,7 +499,7 @@ public class LogUtils {
             return;
         }
         if (sDebug) {
-            Log.w(ROOT_TAG, tag + ", " + msg, tr);
+            Log.w(ROOT_TAG, "[ "+tag + " ]" + msg, tr);
         }
 
         if (null != tr) {
@@ -517,7 +517,7 @@ public class LogUtils {
      */
     public static void w(String tag, Throwable tr) {
         if (sDebug) {
-            Log.w(ROOT_TAG, tag + ", " + tr);
+            Log.w(ROOT_TAG, "[ "+tag + " ]" + tr);
         }
 
         if (sAutoSave) {
@@ -535,7 +535,7 @@ public class LogUtils {
      */
     public static void ws(String tag, Throwable tr) {
         if (sDebug) {
-            Log.w(ROOT_TAG, tag + ", " + tr);
+            Log.w(ROOT_TAG, "[ "+tag + " ]" + tr);
         }
 
         if (null != tr) {
@@ -555,7 +555,7 @@ public class LogUtils {
         }
 
         if (sDebug) {
-            Log.e(ROOT_TAG, tag + ", " + msg);
+            Log.e(ROOT_TAG, "[ "+tag + " ]" + msg);
         }
 
         if (sAutoSave) {
@@ -575,7 +575,7 @@ public class LogUtils {
         }
 
         if (sDebug) {
-            Log.e(ROOT_TAG, tag + ", " + msg);
+            Log.e(ROOT_TAG, "[ "+tag + " ]" + msg);
         }
 
         log2File(tag, msg);
@@ -594,12 +594,12 @@ public class LogUtils {
         }
 
         if (sDebug) {
-            Log.e(ROOT_TAG, tag + ", " + msg, tr);
+            Log.e(ROOT_TAG, "[ "+tag + " ]" + msg, tr);
         }
 
         if (sAutoSave) {
             if (null != tr) {
-                log2File(tag, msg + "\n" + tr.getMessage());
+                log2File(tag, msg + "\n" + tr);
             } else {
                 log2File(tag, msg);
             }
@@ -619,7 +619,7 @@ public class LogUtils {
         }
 
         if (sDebug) {
-            Log.e(ROOT_TAG, tag + ", " + msg, tr);
+            Log.e(ROOT_TAG, "[ "+tag + " ]" + msg, tr);
         }
 
         if (null != tr) {
@@ -798,7 +798,7 @@ public class LogUtils {
                 if (isCreated) {
                     chmod777(file.getPath());
                 } else {
-                    Log.i(ROOT_TAG, tag + ", " + "createNewFile() failed:" + file.getPath());
+                    Log.i(ROOT_TAG, "[ "+tag + " ]" + "createNewFile() failed:" + file.getPath());
                     return;
                 }
             }
@@ -807,13 +807,13 @@ public class LogUtils {
                     + ", " + msg + "\n");
             writer.flush();
         } catch (IOException e) {
-            Log.e(ROOT_TAG, tag + ", " + "", e);
+            Log.e(ROOT_TAG, "[ "+tag + " ]" + "", e);
         } finally {
             if (null != writer) {
                 try {
                     writer.close();
                 } catch (IOException e) {
-                    Log.e(ROOT_TAG, tag + ", " + "", e);
+                    Log.e(ROOT_TAG, "[ "+tag + " ]" + "", e);
                 }
             }
         }
@@ -875,10 +875,10 @@ public class LogUtils {
                     }
                 }
                 if (files[index].exists()) {
-                    Log.i(ROOT_TAG, tag + ", " + "log dir is too large and delete old files:"
+                    Log.i(ROOT_TAG, "[ "+tag + " ]" + "log dir is too large and delete old files:"
                             + files[index].getAbsolutePath());
                     boolean success = files[index].delete();
-                    Log.i(ROOT_TAG, tag + ", " + "delete " + success);
+                    Log.i(ROOT_TAG, "[ "+tag + " ]" + "delete " + success);
                     if (!success) {
                         return -1;
                     }
@@ -978,7 +978,7 @@ public class LogUtils {
         try {
             return format.parse(time);
         } catch (ParseException e) {
-            Log.e(ROOT_TAG, tag + ", " + "ParseException: " + e.getMessage(), e);
+            Log.e(ROOT_TAG, "[ "+tag + " ]" + "ParseException: " + e.getMessage(), e);
         }
         return null;
     }
