@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     android:background="@android:color/holo_green_dark">
 
-    <TextView
+    <com.andfast.pullrecyclerview.PullRecyclerView
+        android:id="@+id/pull_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/tab_home_top"/>
+        android:layout_height="match_parent" />
 </LinearLayout>
