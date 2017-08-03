@@ -165,6 +165,9 @@ public class TabManager {
         if (mTabReselectListeners == null) {
             mTabReselectListeners = new ArrayList<>();
         }
+        if (mTabReselectListeners.contains(l)){
+            return;
+        }
         mTabReselectListeners.add(l);
     }
 

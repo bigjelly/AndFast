@@ -66,7 +66,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        LogUtils.d(TAG,"basefragment hidden");
+        LogUtils.d(TAG,"basefragment hidden is "+hidden);
         if (hidden) {
             hiddenFragment();
         }else {
@@ -81,7 +81,6 @@ public abstract class BaseFragment extends Fragment {
     protected abstract int getLayoutId();
 
     protected void onBindViewBefore(View root) {
-        // ...
     }
 
     protected void initBundle(Bundle bundle) {
