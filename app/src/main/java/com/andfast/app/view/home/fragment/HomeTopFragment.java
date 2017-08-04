@@ -29,8 +29,6 @@ public class HomeTopFragment extends BaseListFragment<TestModel> implements TabM
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser){
             TabManager.getInstance(getContext()).addTabReselectListener(this);
-            if (getPullRecyclerView() != null)
-                getPullRecyclerView().postRefreshing();
         }else {
             TabManager.getInstance(getContext()).removeTabReselectListener(this);
         }

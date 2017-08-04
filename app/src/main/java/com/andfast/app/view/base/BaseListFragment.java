@@ -1,16 +1,17 @@
 package com.andfast.app.view.base;
 
+import android.os.SystemClock;
 import android.support.v7.widget.DividerItemDecoration;
 import android.view.View;
 
 import com.andfast.app.R;
 import com.andfast.app.model.Entity;
+import com.andfast.app.model.TestModel;
 import com.andfast.pullrecyclerview.BaseRecyclerAdapter;
 import com.andfast.pullrecyclerview.PullRecyclerView;
 import com.andfast.pullrecyclerview.layoutmanager.XLinearLayoutManager;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by mby on 17-8-2.
@@ -66,26 +67,50 @@ public abstract class BaseListFragment<T extends Entity> extends BaseFragment im
 
     @Override
     public void onPullRefresh() {
-        List<T> list = new ArrayList<>();
-        if (list != null && list.size() >0){
-            mAdapter.replaceAll(list);
-            mPullRecyclerView.stopRefresh();
-            mPullRecyclerView.enableLoadMore(true);
-        }else {
-            mEmptyView.setVisibility(View.VISIBLE);
-            mPullRecyclerView.stopRefresh();
-            mPullRecyclerView.enableLoadMore(false);
-        }
+        mPullRecyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ArrayList list = new ArrayList<>();
+                for (int i= 0;i<20;i++){
+                    TestModel testModel = new TestModel();
+                    testModel.name = "test push data "+i;
+                    list.add(testModel);
+                }
+                if (list != null && list.size() >0 && SystemClock.currentThreadTimeMillis()%2 ==0){
+                    mAdapter.replaceAll(list);
+                    mPullRecyclerView.stopRefresh();
+                    mPullRecyclerView.enableLoadMore(true);
+                }else {
+                    mEmptyView.setVisibility(View.VISIBLE);
+                    mPullRecyclerView.stopRefresh();
+                    mPullRecyclerView.enableLoadMore(false);
+                }
+            }
+        },1000);
     }
 
     @Override
     public void onLoadMore() {
-        List<T> list = new ArrayList<>();
-        if (list != null && list.size() >0){
+        mPullRecyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ArrayList list = new ArrayList<>();
+                for (int i= 0;i<20;i++){
+                    TestModel testModel = new TestModel();
+                    testModel.name = "test load data "+i;
+                    list.add(testModel);
+                }
 
-        }else {
-            mPullRecyclerView.enableLoadMore(true);
-        }
+                if (list != null && list.size() >0){
+                    mAdapter.addAll(list);
+                    mAdapter.notifyDataSetChanged();
+                    mPullRecyclerView.stopLoadMore();
+                    mPullRecyclerView.enableLoadMore(false);
+                }else {
+                    mPullRecyclerView.enableLoadMore(false);
+                }
+            }
+        },1000);
     }
 
     protected PullRecyclerView getPullRecyclerView() {
