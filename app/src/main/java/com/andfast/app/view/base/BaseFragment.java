@@ -9,18 +9,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.andfast.app.util.LogUtils;
+import com.andfast.app.presenter.base.BasePresenter;
 
 /**
  * Created by mby on 17-7-31.
  */
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
     private static final String TAG = "BaseFragment";
     protected Context mContext;
     protected View mRoot;
     protected Bundle mBundle;
     protected LayoutInflater mInflater;
+    protected P mvpPresenter;
 
     @Override
     public void onAttach(Context context) {
@@ -64,13 +65,39 @@ public abstract class BaseFragment extends Fragment {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        if (mvpPresenter == null) mvpPresenter = createPresenter();
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    protected abstract P createPresenter();
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mvpPresenter != null) {
+            mvpPresenter.detachView();
+            mvpPresenter = null;
+        }
+    }
+
+    @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        LogUtils.d(TAG,"basefragment hidden is "+hidden);
-        if (hidden) {
-            hiddenFragment();
-        }else {
+        if (!hidden) {
             showFragmet();
+        } else {
+            hiddenFragment();
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            showFragmet();
+        } else {
+            hiddenFragment();
         }
     }
 
@@ -99,11 +126,11 @@ public abstract class BaseFragment extends Fragment {
 
     }
 
-    protected <T extends Activity> T getParentActivity(){
-        return (T) getActivity();
+    protected <A extends Activity> A getParentActivity(){
+        return (A) getActivity();
     }
 
-    protected <T extends View> T findView(int viewId) {
-        return (T) mRoot.findViewById(viewId);
+    protected <V extends View> V findView(int viewId) {
+        return (V) mRoot.findViewById(viewId);
     }
 }

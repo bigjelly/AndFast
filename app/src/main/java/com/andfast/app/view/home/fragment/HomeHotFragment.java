@@ -15,7 +15,7 @@ import java.util.List;
  * Created by mby on 17-8-2.
  */
 
-public class HomeHotFragment extends BaseListFragment<TestModel> implements TabManager.TabReselectListener {
+public class HomeHotFragment extends BaseListFragment implements TabManager.TabReselectListener {
 
     private final static String TAG = "HomeHotFragment";
 
@@ -25,6 +25,11 @@ public class HomeHotFragment extends BaseListFragment<TestModel> implements TabM
     public BaseRecyclerAdapter getListAdapter() {
         return new HotListAdapter(mContext, R.layout.lay_hometop_list_item,mDataList);
     }
+
+//    @Override
+//    protected BasePresenter createPresenter() {
+//        return new HomeHotPersenter(this);
+//    }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {

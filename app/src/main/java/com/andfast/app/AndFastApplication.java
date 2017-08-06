@@ -1,6 +1,7 @@
 package com.andfast.app;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.andfast.app.util.LogUtils;
 import com.andfast.app.util.StorageUtils;
@@ -10,11 +11,14 @@ import com.andfast.app.util.StorageUtils;
  */
 
 public class AndFastApplication extends Application {
+
     private final static String TAG = "AndFastApplication";
+    private static Context mContext;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        mContext = getApplicationContext();
         StorageUtils.initExtDir(getApplicationContext());
         initLog();
         CrashHandler.getInstance().init(getApplicationContext());
@@ -29,5 +33,9 @@ public class AndFastApplication extends Application {
         LogUtils.setSaveRuntimeInfo(true);
         LogUtils.setAutoSave(true);
         LogUtils.setDebug(true);
+    }
+
+    public static Context getContext(){
+        return mContext;
     }
 }

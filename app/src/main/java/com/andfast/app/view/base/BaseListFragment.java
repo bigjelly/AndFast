@@ -5,26 +5,28 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.view.View;
 
 import com.andfast.app.R;
-import com.andfast.app.model.Entity;
 import com.andfast.app.model.TestModel;
+import com.andfast.app.presenter.home.HomeHotPersenter;
+import com.andfast.app.presenter.home.IHomeHotView;
 import com.andfast.pullrecyclerview.BaseRecyclerAdapter;
 import com.andfast.pullrecyclerview.PullRecyclerView;
 import com.andfast.pullrecyclerview.layoutmanager.XLinearLayoutManager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mby on 17-8-2.
  * list的基累
  */
 
-public abstract class BaseListFragment<T extends Entity> extends BaseFragment implements PullRecyclerView.OnRecyclerRefreshListener, View.OnClickListener {
+public abstract class BaseListFragment extends BaseFragment<HomeHotPersenter> implements PullRecyclerView.OnRecyclerRefreshListener, View.OnClickListener,IHomeHotView {
 
     private final static String TAG = "BaseListFragment";
 
     private PullRecyclerView mPullRecyclerView;
     private XLinearLayoutManager mLayoutManager;
-    protected BaseRecyclerAdapter<T> mAdapter;
+    protected BaseRecyclerAdapter mAdapter;
     private View mEmptyView;
 
 
@@ -76,6 +78,7 @@ public abstract class BaseListFragment<T extends Entity> extends BaseFragment im
                     testModel.name = "test push data "+i;
                     list.add(testModel);
                 }
+                mvpPresenter.getComment();
                 if (list != null && list.size() >0 && SystemClock.currentThreadTimeMillis()%2 ==0){
                     mAdapter.replaceAll(list);
                     mPullRecyclerView.stopRefresh();
@@ -117,7 +120,7 @@ public abstract class BaseListFragment<T extends Entity> extends BaseFragment im
         return mPullRecyclerView;
     }
 
-    public abstract BaseRecyclerAdapter<T> getListAdapter();
+    public abstract BaseRecyclerAdapter getListAdapter();
 
     @Override
     public void onClick(View view) {
@@ -126,5 +129,15 @@ public abstract class BaseListFragment<T extends Entity> extends BaseFragment im
                 mPullRecyclerView.postRefreshing();
                 break;
         }
+    }
+
+    @Override
+    public void onGetNewsDetailSuccess(List<TestModel> newsDetail) {
+
+    }
+
+    @Override
+    protected HomeHotPersenter createPresenter() {
+        return new HomeHotPersenter(this);
     }
 }

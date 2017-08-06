@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.andfast.app.R;
+import com.andfast.app.presenter.home.HomeHotPersenter;
 import com.andfast.app.view.base.BaseMainFragment;
 import com.andfast.app.view.common.activity.MainActivity;
 import com.andfast.app.view.home.adapter.HomePageAdapter;
@@ -27,6 +28,11 @@ public class HomeFragment extends BaseMainFragment {
     private ViewPager mViewPager;
 
     private MainActivity mMainActivity;
+
+    @Override
+    protected HomeHotPersenter createPresenter() {
+        return null;
+    }
 
     @Override
     protected int getLayoutId() {

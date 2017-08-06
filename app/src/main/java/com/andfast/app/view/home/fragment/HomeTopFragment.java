@@ -15,7 +15,7 @@ import java.util.List;
  * Created by mby on 17-8-2.
  */
 
-public class HomeTopFragment extends BaseListFragment<TestModel> implements TabManager.TabReselectListener {
+public class HomeTopFragment extends BaseListFragment implements TabManager.TabReselectListener {
     private final static String TAG = "HomeTopFragment";
     private List<TestModel> mDataList = new ArrayList<>();
 
