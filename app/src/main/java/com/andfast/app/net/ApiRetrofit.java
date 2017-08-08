@@ -1,7 +1,6 @@
 package com.andfast.app.net;
 
 import com.andfast.app.AndFastApplication;
-import com.andfast.app.constant.GeneralID;
 import com.andfast.app.util.LogUtils;
 import com.google.gson.GsonBuilder;
 
@@ -64,7 +63,7 @@ public class ApiRetrofit {
                 .build();
 
         mRetrofit = new Retrofit.Builder()
-                .baseUrl(GeneralID.BASE_SERVER_URL)
+                .baseUrl(ApiService.API_SERVER_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())//支持RxJava

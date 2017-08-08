@@ -10,9 +10,10 @@ import java.net.SocketTimeoutException;
  */
 
 public abstract class SubscriberCallBack<T> extends BaseCallBack<ResultResponse<T>> {
+    private static final String TAG = "SubscriberCallBack";
     @Override
     public void onNext(ResultResponse<T> resultResponse) {
-        if (resultResponse.error_code == 10000){
+        if (resultResponse.success){
             onSuccess(resultResponse.data);
         }else {
             onFailure(resultResponse);

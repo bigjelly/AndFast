@@ -15,4 +15,7 @@ public class GeneralID {
     public class Extra {
         public static final String TAB = "tab";
     }
+
+    public final static int TPYE_PULL_REFRESH = 1001;
+    public final static int TPYE_LOAD_MORE = TPYE_PULL_REFRESH + 1;
 }

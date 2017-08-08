@@ -2,7 +2,7 @@ package com.andfast.app.view.base;
 
 import android.view.View;
 
-import com.andfast.app.presenter.home.HomeHotPersenter;
+import com.andfast.app.presenter.base.BasePresenter;
 import com.andfast.app.view.common.activity.MainActivity;
 
 /**
@@ -10,8 +10,9 @@ import com.andfast.app.view.common.activity.MainActivity;
  * 在mainactivity上的fragment基类
  */
 
-public abstract class BaseMainFragment extends BaseFragment<HomeHotPersenter> {
+public abstract class BaseMainFragment<P extends BasePresenter> extends BaseFragment<P> {
     private MainActivity mMainActivity;
+
     @Override
     protected void initWidget(View root) {
         super.initWidget(root);

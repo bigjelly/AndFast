@@ -5,4 +5,8 @@
 
     <dimen name="splash_text_size">45px</dimen>
 
+    <dimen name="text_size_small">10sp</dimen>
+    <dimen name="text_size_large">14sp</dimen>
+    <dimen name="text_size_normal">14dp</dimen>
+
 </resources>

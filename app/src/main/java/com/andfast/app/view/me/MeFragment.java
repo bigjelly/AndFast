@@ -1,7 +1,7 @@
 package com.andfast.app.view.me;
 
 import com.andfast.app.R;
-import com.andfast.app.presenter.home.HomeHotPersenter;
+import com.andfast.app.presenter.video.VideoHotPersenter;
 import com.andfast.app.view.base.BaseMainFragment;
 import com.andfast.app.view.common.activity.MainActivity;
 
@@ -13,7 +13,7 @@ public class MeFragment extends BaseMainFragment {
     private MainActivity mMainActivity;
 
     @Override
-    protected HomeHotPersenter createPresenter() {
+    protected VideoHotPersenter createPresenter() {
         return null;
     }
 

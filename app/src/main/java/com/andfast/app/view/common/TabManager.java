@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.andfast.app.AndFastApplication;
 import com.andfast.app.R;
 import com.andfast.app.constant.GeneralID;
+import com.andfast.app.util.LogUtils;
 import com.andfast.app.view.common.activity.MainActivity;
 import com.andfast.app.view.widget.SpacingTextView;
 
@@ -25,7 +26,7 @@ import java.util.List;
  */
 
 public class TabManager {
-
+    private final static String TAG = "TabManager";
     private TabLayout mTabLayout;
     private Fragment mCurrentFragment;
     private LayoutInflater mInflater;
@@ -124,6 +125,7 @@ public class TabManager {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
                 if (null != mTabReselectListeners) {
+                    LogUtils.d(TAG,"onTabReselected" + mTabReselectListeners.size());
                     for (int i = mTabReselectListeners.size() - 1; i >= 0; i--) {
                         mTabReselectListeners.get(i).onTabReselect();
                     }
@@ -165,6 +167,7 @@ public class TabManager {
         if (mTabReselectListeners.contains(l)){
             return;
         }
+        LogUtils.d(TAG,"onTabReselected add" );
         mTabReselectListeners.add(l);
     }
 
@@ -173,6 +176,7 @@ public class TabManager {
             return;
         if (mTabReselectListeners == null || mTabReselectListeners.isEmpty())
             return;
+        LogUtils.d(TAG,"onTabReselected remove");
         mTabReselectListeners.remove(l);
     }
 }

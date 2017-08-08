@@ -1,4 +1,4 @@
-package com.andfast.app.view.home.adapter;
+package com.andfast.app.view.video.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,12 +11,12 @@ import java.util.List;
  * Created by mby on 17-8-2.
  */
 
-public class HomePageAdapter extends FragmentPagerAdapter {
+public class VideoPageAdapter extends FragmentPagerAdapter {
 
     private String[] mTabsTitle;
     List<Fragment> fragmentList = new ArrayList<Fragment>();
 
-    public HomePageAdapter(FragmentManager fm, List<Fragment> fragmentList, String[] tabsTitle) {
+    public VideoPageAdapter(FragmentManager fm, List<Fragment> fragmentList, String[] tabsTitle) {
         super(fm);
         this.fragmentList = fragmentList;
         this.mTabsTitle = tabsTitle;

@@ -1,7 +1,7 @@
-package com.andfast.app.presenter.home;
+package com.andfast.app.view.video.Impl;
 
 import com.andfast.app.model.TestModel;
-import com.andfast.app.presenter.base.IBaseDetailView;
+import com.andfast.app.view.base.Impl.IBasePullListView;
 
 import java.util.List;
 
@@ -9,6 +9,6 @@ import java.util.List;
  * Created by mby on 17-8-6.
  */
 
-public interface IHomeHotView extends IBaseDetailView<TestModel> {
+public interface IVideoTopView extends IBasePullListView {
     void onGetNewsDetailSuccess(List<TestModel> newsDetail);
 }

@@ -8,7 +8,7 @@ public class ResultResponse <T> {
 
     public String has_more;
     public String message;
-    public String success;
+    public boolean success;
     public int error_code;
     public T data;
 

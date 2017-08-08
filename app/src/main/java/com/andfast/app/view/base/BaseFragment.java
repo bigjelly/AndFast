@@ -21,7 +21,25 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
     protected View mRoot;
     protected Bundle mBundle;
     protected LayoutInflater mInflater;
+
     protected P mvpPresenter;
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        if (mvpPresenter == null) mvpPresenter = createPresenter();
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    protected abstract P createPresenter();
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mvpPresenter != null) {
+            mvpPresenter.detachView();
+            mvpPresenter = null;
+        }
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -62,23 +80,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
             initData();
         }
         return mRoot;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        if (mvpPresenter == null) mvpPresenter = createPresenter();
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    protected abstract P createPresenter();
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (mvpPresenter != null) {
-            mvpPresenter.detachView();
-            mvpPresenter = null;
-        }
     }
 
     @Override

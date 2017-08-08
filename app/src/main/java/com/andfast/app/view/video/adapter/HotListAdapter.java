@@ -1,4 +1,4 @@
-package com.andfast.app.view.home.adapter;
+package com.andfast.app.view.video.adapter;
 
 import android.content.Context;
 
