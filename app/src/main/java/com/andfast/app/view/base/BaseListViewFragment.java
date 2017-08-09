@@ -1,7 +1,11 @@
 package com.andfast.app.view.base;
 
+import android.support.annotation.StringRes;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.andfast.app.R;
 import com.andfast.app.presenter.base.BasePresenter;
@@ -22,11 +26,18 @@ import com.andfast.pullrecyclerview.layoutmanager.XLinearLayoutManager;
     private XLinearLayoutManager mLayoutManager;
     protected BaseRecyclerAdapter mAdapter;
     protected View mEmptyView;
+    protected AppBarLayout mAppBarLayout;
+    private Toolbar mToolbar;
+    private TextView mToolbarTitle;
 
     @Override
     protected void initWidget(View root) {
         super.initWidget(root);
         mPullRecyclerView = findView(R.id.pull_recycler_view);
+        mAppBarLayout = findView(R.id.appBarLayout);
+        mToolbar = findView(R.id.toolbar);
+        mToolbarTitle = findView(R.id.toolbar_title);
+
         mPullRecyclerView.setOnRecyclerRefreshListener(this);
         // 初始化PullRecyclerView
         mLayoutManager = new XLinearLayoutManager(getContext());
@@ -73,5 +84,26 @@ import com.andfast.pullrecyclerview.layoutmanager.XLinearLayoutManager;
                 mPullRecyclerView.postRefreshing();
                 break;
         }
+    }
+
+    /**
+     * 设置居中头部标题
+     *
+     * @param title
+     */
+    protected void setToolBarCenterTitle(@StringRes int title){
+                if (mToolbarTitle != null) {
+            mToolbarTitle.setText(title);
+        } else {
+            setToolBarTitle(title);
+        }
+    }
+        /**
+         * 设置头部标题
+         *
+         * @param title
+         */
+    public void setToolBarTitle(@StringRes int title) {
+        mToolbar.setTitle(title);
     }
 }

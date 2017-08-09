@@ -7,7 +7,6 @@ import com.andfast.app.model.Topic;
 import com.andfast.app.net.ResultResponse;
 import com.andfast.app.presenter.home.HomePresenter;
 import com.andfast.app.view.base.BaseListViewFragment;
-import com.andfast.app.view.common.activity.MainActivity;
 import com.andfast.app.view.home.Impl.IHomeListView;
 import com.andfast.app.view.home.adapter.HomeListAdapter;
 import com.andfast.pullrecyclerview.BaseRecyclerAdapter;
@@ -29,14 +28,7 @@ public class HomeFragment extends BaseListViewFragment<HomePresenter> implements
     @Override
     protected void initWidget(View root) {
         super.initWidget(root);
-        MainActivity mMainActivity = getParentActivity();
-        mMainActivity.setTitle(R.string.tab_name_home);
-    }
-
-    @Override
-    protected void initData() {
-        super.initData();
-
+        setToolBarCenterTitle(R.string.tab_name_home);
     }
 
     @Override

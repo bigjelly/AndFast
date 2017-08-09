@@ -21,9 +21,4 @@ public class MeFragment extends BaseMainFragment {
     protected int getLayoutId() {
         return R.layout.frg_me;
     }
-
-    @Override
-    public int getBarTitleString() {
-        return R.string.tab_name_my;
-    }
 }

@@ -4,13 +4,13 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.TextView;
 
 import com.andfast.app.R;
 import com.andfast.app.model.TestModel;
 import com.andfast.app.net.ResultResponse;
 import com.andfast.app.presenter.video.VideoPersenter;
 import com.andfast.app.view.base.BaseMainFragment;
-import com.andfast.app.view.common.activity.MainActivity;
 import com.andfast.app.view.video.Impl.IVideoView;
 import com.andfast.app.view.video.adapter.VideoPageAdapter;
 import com.andfast.app.view.video.fragment.VideoHotFragment;
@@ -25,6 +25,9 @@ import java.util.List;
 
 public class VideoFragment extends BaseMainFragment<VideoPersenter> implements IVideoView {
 
+    private TabLayout mTabLayout;
+    private ViewPager mViewPager;
+
     @Override
     protected int getLayoutId() {
         return R.layout.frg_video;
@@ -36,11 +39,6 @@ public class VideoFragment extends BaseMainFragment<VideoPersenter> implements I
     }
 
     @Override
-    public int getBarTitleString() {
-        return R.string.tab_name_video;
-    }
-
-    @Override
     public void onError(int type, ResultResponse response) {
 
     }
@@ -49,15 +47,13 @@ public class VideoFragment extends BaseMainFragment<VideoPersenter> implements I
     public void onVideoDetailSuccess(List<TestModel> newsDetail) {
 
     }
-    private TabLayout mTabLayout;
-    private ViewPager mViewPager;
-
-    private MainActivity mMainActivity;
 
     @Override
     protected void initWidget(View root) {
         super.initWidget(root);
-        mTabLayout = findView(R.id.hometab);
+        TextView textView =findView(R.id.toolbar_title);
+        textView.setText(R.string.tab_name_video);
+        mTabLayout = findView(R.id.tablayout);
         mViewPager = findView(R.id.homeviewpager);
         mTabLayout.setupWithViewPager(mViewPager);
     }
@@ -72,5 +68,7 @@ public class VideoFragment extends BaseMainFragment<VideoPersenter> implements I
         VideoPageAdapter adapter = new VideoPageAdapter(this.getChildFragmentManager(),
                 fragments, titles);
         mViewPager.setAdapter(adapter);
+
+
     }
 }

@@ -17,17 +17,11 @@ public abstract class BaseMainFragment<P extends BasePresenter> extends BaseFrag
     protected void initWidget(View root) {
         super.initWidget(root);
         mMainActivity = getParentActivity();
-        mMainActivity.setToolBarCenterTitle(getBarTitleString());
     }
 
     @Override
     protected void showFragmet() {
         super.showFragmet();
-        mMainActivity.setToolBarCenterTitle(getBarTitleString());
     }
-    /**
-     * 获取居中头部标题
-     */
-    public abstract int getBarTitleString();
 
 }
