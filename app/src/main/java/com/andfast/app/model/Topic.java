@@ -18,5 +18,10 @@ public class Topic {
     public Integer reply_count;
     public Integer visit_count;
     public Date create_at;
-//    private Author author;
+    public Author author;
+
+    public class Author{
+        public String loginname;
+        public String avatar_url;
+    }
 }
