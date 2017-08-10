@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AndFast</string>
+
+    <!-- 底部选项卡信息 -->
+    <string name="tab_name_home">首页</string>
+    <string name="tab_name_video">视频</string>
+    <string name="tab_name_my">我的</string>
+
+    <!-- home tab -->
+    <string name="tab_home_top">头条</string>
+    <string name="tab_home_hot">热门</string>
+
+    <string name="splash_text">欢迎进入神秘的空间</string>
+
+    <string name="text_not_net">网络出现问题，请检查网是否通畅！</string>
+</resources>

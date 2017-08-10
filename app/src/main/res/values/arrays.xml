@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tabs_home">
+        <item>@string/tab_home_top</item>
+        <item>@string/tab_home_hot</item>
+    </string-array>
+</resources>
