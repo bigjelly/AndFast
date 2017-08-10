@@ -22,7 +22,7 @@ public class HomePresenter extends BasePresenter<IHomeListView> {
         addSubscription(mApiService.getTopicPage(1,20,true), new SubscriberCallBack<List<Topic>>() {
             @Override
             protected void onFailure(ResultResponse response) {
-                mView.onError(GeneralID.TPYE_PULL_REFRESH,response);
+                mView.onError(GeneralID.TYPE_PULL_REFRESH,response);
             }
 
             @Override
@@ -36,7 +36,7 @@ public class HomePresenter extends BasePresenter<IHomeListView> {
         addSubscription(mApiService.getTopicPage(1,20,true),new SubscriberCallBack<List<Topic>>() {
             @Override
             protected void onFailure(ResultResponse response) {
-                mView.onError(GeneralID.TPYE_LOAD_MORE,response);
+                mView.onError(GeneralID.TYPE_LOAD_MORE,response);
             }
 
             @Override

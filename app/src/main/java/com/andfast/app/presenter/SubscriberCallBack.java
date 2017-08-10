@@ -1,9 +1,8 @@
 package com.andfast.app.presenter;
 
+import com.andfast.app.constant.GeneralID;
 import com.andfast.app.net.ResultResponse;
 import com.andfast.app.presenter.base.BaseCallBack;
-
-import java.net.SocketTimeoutException;
 
 /**
  * Created by mby on 17-8-6.
@@ -23,10 +22,7 @@ public abstract class SubscriberCallBack<T> extends BaseCallBack<ResultResponse<
     @Override
     public void onError(Throwable e) {
         super.onError(e);
-        if (e instanceof SocketTimeoutException){
-
-        }
-        onFailure(new ResultResponse("",1004,"",e));
+        onFailure(new ResultResponse("", GeneralID.TYPE_NET_ERROR_CODE,false,"",e));
     }
 
     protected abstract void onFailure(ResultResponse response);

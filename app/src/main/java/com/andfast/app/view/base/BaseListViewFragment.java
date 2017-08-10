@@ -5,6 +5,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.andfast.app.R;
@@ -15,7 +16,7 @@ import com.andfast.pullrecyclerview.layoutmanager.XLinearLayoutManager;
 
 /**
  * Created by mby on 17-8-2.
- * list的基累
+ * list的基类
  */
 
     public abstract class BaseListViewFragment<P extends BasePresenter> extends BaseFragment<P> implements PullRecyclerView.OnRecyclerRefreshListener, View.OnClickListener {
@@ -27,6 +28,8 @@ import com.andfast.pullrecyclerview.layoutmanager.XLinearLayoutManager;
     protected BaseRecyclerAdapter mAdapter;
     protected View mEmptyView;
     protected AppBarLayout mAppBarLayout;
+    protected Button mEmptyBtn;
+    protected TextView mEmptyText;
     private Toolbar mToolbar;
     private TextView mToolbarTitle;
 
@@ -52,6 +55,8 @@ import com.andfast.pullrecyclerview.layoutmanager.XLinearLayoutManager;
 
         mPullRecyclerView.setEmptyView(R.layout.lay_empty_view);
         mEmptyView = mPullRecyclerView.getAdapter().getEmptyView();
+        mEmptyBtn = (Button) mEmptyView.findViewById(R.id.empty_view_btn);
+        mEmptyText = (TextView) mEmptyView.findViewById(R.id.empty_view_ico_tv);
         mEmptyView.findViewById(R.id.empty_view_btn).setOnClickListener(this);
         mEmptyView.setVisibility(View.GONE);
 

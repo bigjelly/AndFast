@@ -16,6 +16,10 @@ public class GeneralID {
         public static final String TAB = "tab";
     }
 
-    public final static int TPYE_PULL_REFRESH = 1001;
-    public final static int TPYE_LOAD_MORE = TPYE_PULL_REFRESH + 1;
+    public final static int TYPE_PULL_REFRESH = 1;
+    public final static int TYPE_LOAD_MORE = TYPE_PULL_REFRESH + 1;
+
+    /**网络请求异常code*/
+    public final static int TYPE_NET_UNAVAILABLE_CODE = 1004;
+    public final static int TYPE_NET_ERROR_CODE = TYPE_NET_UNAVAILABLE_CODE+1;
 }

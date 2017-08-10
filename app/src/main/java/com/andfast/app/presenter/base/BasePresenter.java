@@ -1,7 +1,11 @@
 package com.andfast.app.presenter.base;
 
+import com.andfast.app.AndFastApplication;
+import com.andfast.app.constant.GeneralID;
 import com.andfast.app.net.ApiRetrofit;
 import com.andfast.app.net.ApiService;
+import com.andfast.app.net.ResultResponse;
+import com.andfast.app.util.NetworkUtils;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -35,6 +39,14 @@ public class BasePresenter<V> {
     public void addSubscription(Observable observable, Subscriber subscriber) {
         if (mCompositeSubscription == null) {
             mCompositeSubscription = new CompositeSubscription();
+        }
+        if (!NetworkUtils.isAvailable(AndFastApplication.getContext())){
+            observable = Observable.create(new Observable.OnSubscribe<ResultResponse<V>>() {
+                @Override
+                public void call(Subscriber<? super ResultResponse<V>> subscriber) {
+                    subscriber.onNext(new ResultResponse<V>("", GeneralID.TYPE_NET_UNAVAILABLE_CODE,false,"",null));
+                }
+            });
         }
         mCompositeSubscription.add(observable
                 .subscribeOn(Schedulers.io())

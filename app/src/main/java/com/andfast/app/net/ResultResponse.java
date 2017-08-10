@@ -12,10 +12,11 @@ public class ResultResponse <T> {
     public int error_code;
     public T data;
 
-    public ResultResponse(String more, int code,String _message, T result) {
+    public ResultResponse(String more, int code,boolean success,String _message, T result) {
         error_code = code;
         has_more = more;
         message = _message;
         data = result;
+        this.success = success;
     }
 }

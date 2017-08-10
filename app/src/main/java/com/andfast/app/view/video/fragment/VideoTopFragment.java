@@ -15,8 +15,8 @@ import com.andfast.pullrecyclerview.BaseRecyclerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.andfast.app.constant.GeneralID.TPYE_LOAD_MORE;
-import static com.andfast.app.constant.GeneralID.TPYE_PULL_REFRESH;
+import static com.andfast.app.constant.GeneralID.TYPE_LOAD_MORE;
+import static com.andfast.app.constant.GeneralID.TYPE_PULL_REFRESH;
 
 /**
  * Created by mby on 17-8-2.
@@ -60,12 +60,12 @@ public class VideoTopFragment extends BaseListViewFragment<HomePresenter> implem
     @Override
     public void onError(int type, ResultResponse response) {
         switch (type) {
-            case TPYE_PULL_REFRESH:
+            case TYPE_PULL_REFRESH:
                 mEmptyView.setVisibility(View.VISIBLE);
                 mPullRecyclerView.stopRefresh();
                 mPullRecyclerView.enableLoadMore(false);
                 break;
-            case TPYE_LOAD_MORE:
+            case TYPE_LOAD_MORE:
                 mPullRecyclerView.enableLoadMore(false);
                 break;
         }
