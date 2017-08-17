@@ -3,7 +3,6 @@ package com.andfast.app.view.common.activity;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +13,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.andfast.app.R;
+import com.andfast.app.util.LogUtils;
+import com.andfast.app.util.StorageUtils;
 import com.andfast.app.view.base.BaseActivity;
 import com.andfast.app.view.widget.NWebView;
 
@@ -27,7 +28,7 @@ import static com.andfast.app.R.id.fab;
 public class WebViewActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG ="WebViewActivity";
-    private static final String APP_CACHE_DIRNAME = "/webcache"; // web缓存目录
+    private static final String APP_CACHE_DIRNAME = "webcache"; // web缓存目录
 
     private NWebView mWebView;
     private Toolbar mToolbar;
@@ -77,12 +78,12 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         settings.setDomStorageEnabled(true);
         // 开启database storage API功能
         settings.setDatabaseEnabled(true);
-        String cacheDirPath = getFilesDir().getAbsolutePath() + APP_CACHE_DIRNAME;
-        Log.i("cachePath", cacheDirPath);
+        String cacheDirPath = StorageUtils.getCacheDir() + APP_CACHE_DIRNAME;
+        LogUtils.i(TAG,"cachePath"+cacheDirPath);
         // 设置数据库缓存路径
         settings.setAppCachePath(cacheDirPath);
         settings.setAppCacheEnabled(true);
-        Log.i("databasepath", settings.getDatabasePath());
+        LogUtils.i(TAG,"databasepath"+ settings.getDatabasePath());
 
         mWebView.setOnScrollChangedCallback(new NWebView.OnScrollChangedCallback() {
             @Override

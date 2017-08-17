@@ -20,6 +20,11 @@ public class StorageUtils {
      * 应用crash保存目录
      */
     private static String FILE_DIR_APP_CRASH;
+
+    /**
+     * 应用缓存文件
+     */
+    private static String FILE_DIR_APP_CACHE;
     private static String FILE_DIR_APP_APK;
 
     public static void initExtDir(Context context) {
@@ -40,6 +45,10 @@ public class StorageUtils {
             File apkDir = context.getExternalFilesDir("apk");
             if (null != apkDir) {
                 FILE_DIR_APP_APK = apkDir.getAbsolutePath() + File.separator;
+            }
+            File cacheDir = context.getExternalFilesDir("cache");
+            if (null != apkDir) {
+                FILE_DIR_APP_CACHE = apkDir.getAbsolutePath() + File.separator;
             }
         } else {
             LogUtils.setAutoSave(false);
@@ -95,6 +104,12 @@ public class StorageUtils {
         return FILE_DIR_APP_CRASH;
     }
 
+    /**
+     * Cache dir
+     */
+    public static String getCacheDir() {
+        return FILE_DIR_APP_CACHE;
+    }
     /**
      * 更新包存放位置
      */
