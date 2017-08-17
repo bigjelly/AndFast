@@ -9,4 +9,6 @@
     <dimen name="text_size_large">14sp</dimen>
     <dimen name="text_size_normal">14dp</dimen>
 
+    <dimen name="splash_ad_ignore">36.0dip</dimen>
+
 </resources>

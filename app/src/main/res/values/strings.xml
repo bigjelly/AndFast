@@ -14,4 +14,6 @@
     <string name="splash_text">欢迎进入神秘的空间</string>
 
     <string name="text_not_net">网络出现问题，请检查网是否通畅！</string>
+
+    <string name="splash_ad_ignore">跳过广告</string>
 </resources>

@@ -1,16 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/darker_gray">
 
-    <TextView
-        android:id="@+id/splash_default_tv"
+    <ImageView
+        android:id="@+id/ad_img_splash"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        />
+
+    <FrameLayout
+        android:id="@+id/ad_ignore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        android:layout_centerInParent="true"
-        android:textSize="@dimen/splash_text_size"
-        android:text="@string/splash_text" />
+        android:layout_gravity="right"
+        android:layout_marginRight="10.0dip"
+        android:layout_marginTop="8.0dip">
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/skip_real"
+            android:layout_width="wrap_content"
+            android:layout_height="24.0dip"
+            android:layout_gravity="center"
+            android:background="@drawable/splash_ad_ignore_bg"
+            android:gravity="center"
+            android:paddingLeft="10.0dip"
+            android:paddingRight="10.0dip"
+            android:text="@string/splash_ad_ignore"
+            android:textColor="@android:color/black"
+            android:textSize="12.0sp" />
+
+        <ImageView
+            android:id="@+id/ad_skip_loading"
+            android:layout_width="@dimen/splash_ad_ignore"
+            android:layout_height="@dimen/splash_ad_ignore"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:src="@mipmap/img_loading"
+            android:visibility="invisible" />
+    </FrameLayout>
+
+</FrameLayout>

@@ -27,7 +27,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        TabLayout tabLayout = getView(R.id.tl_main_tabs);
+        TabLayout tabLayout = findView(R.id.tl_main_tabs);
         // 初始化底部的view
         mTabManager = TabManager.getInstance(getApplicationContext());
         mTabManager.initTabs(this,getIntent(),tabLayout);

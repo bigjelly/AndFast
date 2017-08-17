@@ -1,6 +1,8 @@
 package com.andfast.app.view.base;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -14,7 +16,7 @@ import com.andfast.app.util.LogUtils;
  * Created by mby on 17-7-31.
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity{
     private final static String TAG = "BaseActivity";
 
     public Context mContext = null;
@@ -24,8 +26,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mContext = getApplicationContext();
         setContentView(getContentView());
-        initData();
         initView();
+        initData();
     }
 
     protected void initView() {
@@ -47,7 +49,17 @@ public abstract class BaseActivity extends AppCompatActivity {
     @LayoutRes
     protected abstract int getContentView();
 
-    protected final <E extends View> E getView(@IdRes int id) {
+    /**
+     * 界面跳转
+     *
+     * @param tarActivity
+     */
+    protected void intent2Activity(Class<? extends Activity> tarActivity) {
+        Intent intent = new Intent(mContext, tarActivity);
+        startActivity(intent);
+    }
+
+    protected final <E extends View> E findView(@IdRes int id) {
         try {
             return (E) findViewById(id);
         } catch (ClassCastException ex) {

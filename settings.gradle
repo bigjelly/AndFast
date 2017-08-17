@@ -1,1 +1,1 @@
-include ':app', ':pullrecyclerview'
+include ':app', ':pullrecyclerview', ':statusbar'
