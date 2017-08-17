@@ -25,6 +25,12 @@
         <activity android:name=".view.common.activity.MainActivity"
             android:launchMode="singleTask">
         </activity>
+        <activity android:name=".view.common.activity.WebViewActivity"
+            android:configChanges="orientation|screenSize"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
     </application>
 
 </manifest>

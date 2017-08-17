@@ -7,13 +7,10 @@
 
     <include layout="@layout/lay_common_toolbar"/>
 
-
     <com.andfast.app.view.widget.NWebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        ></com.andfast.app.view.widget.NWebView>
+        android:layout_height="match_parent" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -22,7 +19,7 @@
         android:layout_gravity="end|bottom"
         app:elevation="6dp"
         app:pressedTranslationZ="12dp"
+        android:src="@android:drawable/arrow_up_float"
         android:layout_margin="@dimen/text_size_large"
         />
-
 </android.support.design.widget.CoordinatorLayout>
