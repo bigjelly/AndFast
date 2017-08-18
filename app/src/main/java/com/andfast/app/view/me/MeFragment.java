@@ -4,14 +4,12 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.view.KeyEvent;
 import android.view.View;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.andfast.app.R;
-import com.andfast.app.presenter.video.VideoHotPersenter;
 import com.andfast.app.util.LogUtils;
-import com.andfast.app.view.base.BaseMainFragment;
+import com.andfast.app.util.StorageUtils;
+import com.andfast.app.view.base.BaseFragment;
 import com.andfast.app.view.common.activity.WebViewActivity;
 import com.andfast.app.view.widget.NWebView;
 
@@ -19,14 +17,10 @@ import com.andfast.app.view.widget.NWebView;
  * Created by mby on 17-7-31.
  */
 
-public class MeFragment extends BaseMainFragment<VideoHotPersenter> {
+public class MeFragment extends BaseFragment {
 
     private static final String TAG = "MeFragment";
-
-    @Override
-    protected VideoHotPersenter createPresenter() {
-        return null;
-    }
+    private NWebView mWebView;
 
     @Override
     protected int getLayoutId() {
@@ -39,24 +33,17 @@ public class MeFragment extends BaseMainFragment<VideoHotPersenter> {
         TextView toolbarTitle = findView(R.id.toolbar_title);
         toolbarTitle.setText(R.string.tab_name_my);
 
-        final NWebView webView = findView(R.id.webview);
-        webView.loadUrl("https://github.com/bigjelly/AndFast");
+        mWebView = findView(R.id.webview);
+        mWebView.loadUrl("https://github.com/bigjelly/AndFast");
 
-        webView.setWebViewClient(new WebViewClient() {
-            //设置在webView点击打开的新网页在当前界面显示,而不跳转到新的浏览器中
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-        });
+        mWebView.openCache(StorageUtils.getCacheDir()+"webcache");
 
-        webView.setOnKeyListener(new View.OnKeyListener() {
+        mWebView.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
                 LogUtils.i(TAG,"keyCode:"+keyCode);
-                if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
-                    webView.goBack();
+                if ((keyCode == KeyEvent.KEYCODE_BACK) && mWebView.canGoBack()) {
+                    mWebView.goBack();
                     return true;
                 }
                 return false;
@@ -71,5 +58,14 @@ public class MeFragment extends BaseMainFragment<VideoHotPersenter> {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mWebView != null) {
+            mWebView.stopLoading();
+            mWebView.destroy();
+        }
     }
 }

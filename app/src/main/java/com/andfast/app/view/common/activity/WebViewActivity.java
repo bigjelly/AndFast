@@ -9,12 +9,9 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.andfast.app.R;
-import com.andfast.app.util.LogUtils;
-import com.andfast.app.util.StorageUtils;
 import com.andfast.app.view.base.BaseActivity;
 import com.andfast.app.view.widget.NWebView;
 
@@ -26,7 +23,7 @@ import static com.andfast.app.R.id.fab;
  */
 
 public class WebViewActivity extends BaseActivity implements View.OnClickListener {
-
+    // TODO: 17-8-18  activity的缓存没有生效，后续解决这个问题
     private static final String TAG ="WebViewActivity";
     private static final String APP_CACHE_DIRNAME = "webcache"; // web缓存目录
 
@@ -61,30 +58,6 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             }
         });
 
-
-        WebSettings settings = mWebView.getSettings();
-        settings.setJavaScriptEnabled(true); //设置WebView属性,运行执行js脚本
-        settings.setUseWideViewPort(true);//设定支持viewport
-        settings.setLoadWithOverviewMode(true);   //自适应屏幕
-        settings.setBuiltInZoomControls(true); //支持缩放
-        settings.setDisplayZoomControls(false);
-        settings.setSupportZoom(true);//设定支持缩放
-        settings.setAllowFileAccess(true);//可访问文件
-        settings.setDefaultTextEncodingName("UTF-8");
-
-        //设置缓存模式
-        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-        // 开启DOM storage API 功能
-        settings.setDomStorageEnabled(true);
-        // 开启database storage API功能
-        settings.setDatabaseEnabled(true);
-        String cacheDirPath = StorageUtils.getCacheDir() + APP_CACHE_DIRNAME;
-        LogUtils.i(TAG,"cachePath"+cacheDirPath);
-        // 设置数据库缓存路径
-        settings.setAppCachePath(cacheDirPath);
-        settings.setAppCacheEnabled(true);
-        LogUtils.i(TAG,"databasepath"+ settings.getDatabasePath());
-
         mWebView.setOnScrollChangedCallback(new NWebView.OnScrollChangedCallback() {
             @Override
             public void onScroll(int dx, int dy) {
@@ -100,17 +73,12 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 }
             }
         });
-
-        mWebView.setWebChromeClient(new WebChromeClient());
-
     }
 
     @Override
     protected void initData() {
         super.initData();
-
-
-        mWebView.loadUrl("https://segmentfault.com/q/1010000002590371");//调用loadUrl方法为WebView加入链接
+        mWebView.loadUrl("https://segmentfault.com/");//调用loadUrl方法为WebView加入链接
 
         mWebView.setWebChromeClient(new WebChromeClient() {
             //这里设置获取到的网站title
@@ -124,7 +92,6 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 
     //我们需要重写回退按钮的时间,当用户点击回退按钮：
     //1.webView.canGoBack()判断网页是否能后退,可以则goback()
-    //2.如果不可以连续点击两次退出App,否则弹出提示Toast
     @Override
     public void onBackPressed() {
         if (mWebView.canGoBack()) {
@@ -166,6 +133,9 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mWebView = null;
+        if (mWebView != null) {
+            mWebView.stopLoading();
+            mWebView.destroy();
+        }
     }
 }

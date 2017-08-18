@@ -12,6 +12,8 @@ import android.view.View;
 
 import com.andfast.app.util.LogUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 /**
  * Created by mby on 17-7-31.
  */
@@ -48,6 +50,22 @@ public abstract class BaseActivity extends AppCompatActivity{
 
     @LayoutRes
     protected abstract int getContentView();
+
+    private boolean isEventBusRegisted(Object subscribe) {
+        return EventBus.getDefault().isRegistered(subscribe);
+    }
+
+    public void registerEventBus(Object subscribe) {
+        if (!isEventBusRegisted(subscribe)) {
+            EventBus.getDefault().register(subscribe);
+        }
+    }
+
+    public void unregisterEventBus(Object subscribe) {
+        if (isEventBusRegisted(subscribe)) {
+            EventBus.getDefault().unregister(subscribe);
+        }
+    }
 
     /**
      * 界面跳转

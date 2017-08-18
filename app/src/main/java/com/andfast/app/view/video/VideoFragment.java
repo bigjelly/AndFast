@@ -7,11 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.andfast.app.R;
-import com.andfast.app.model.TestModel;
-import com.andfast.app.net.ResultResponse;
-import com.andfast.app.presenter.video.VideoPersenter;
-import com.andfast.app.view.base.BaseMainFragment;
-import com.andfast.app.view.video.Impl.IVideoView;
+import com.andfast.app.view.base.BaseFragment;
 import com.andfast.app.view.video.adapter.VideoPageAdapter;
 import com.andfast.app.view.video.fragment.VideoHotFragment;
 import com.andfast.app.view.video.fragment.VideoTopFragment;
@@ -23,7 +19,7 @@ import java.util.List;
  * Created by mby on 17-7-31.
  */
 
-public class VideoFragment extends BaseMainFragment<VideoPersenter> implements IVideoView {
+public class VideoFragment extends BaseFragment {
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
@@ -31,21 +27,6 @@ public class VideoFragment extends BaseMainFragment<VideoPersenter> implements I
     @Override
     protected int getLayoutId() {
         return R.layout.frg_video;
-    }
-
-    @Override
-    protected VideoPersenter createPresenter() {
-        return new VideoPersenter(this);
-    }
-
-    @Override
-    public void onError(int type, ResultResponse response) {
-
-    }
-
-    @Override
-    public void onVideoDetailSuccess(List<TestModel> newsDetail) {
-
     }
 
     @Override

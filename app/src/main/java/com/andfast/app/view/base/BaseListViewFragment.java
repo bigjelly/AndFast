@@ -19,7 +19,7 @@ import com.andfast.pullrecyclerview.layoutmanager.XLinearLayoutManager;
  * list的基类
  */
 
-    public abstract class BaseListViewFragment<P extends BasePresenter> extends BaseFragment<P> implements PullRecyclerView.OnRecyclerRefreshListener, View.OnClickListener {
+    public abstract class BaseListViewFragment<P extends BasePresenter> extends BasePresenterFragment<P> implements PullRecyclerView.OnRecyclerRefreshListener, View.OnClickListener {
 
     private final static String TAG = "BaseListViewFragment";
 

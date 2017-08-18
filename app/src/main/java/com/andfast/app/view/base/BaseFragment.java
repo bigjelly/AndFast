@@ -9,37 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.andfast.app.presenter.base.BasePresenter;
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by mby on 17-7-31.
  */
 
-public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
+public abstract class BaseFragment extends Fragment {
     private static final String TAG = "BaseFragment";
     protected Context mContext;
     protected View mRoot;
     protected Bundle mBundle;
     protected LayoutInflater mInflater;
-
-    protected P mvpPresenter;
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        if (mvpPresenter == null) mvpPresenter = createPresenter();
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    protected abstract P createPresenter();
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (mvpPresenter != null) {
-            mvpPresenter.detachView();
-            mvpPresenter = null;
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -125,6 +106,22 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
 
     protected void onRestartInstance(Bundle bundle) {
 
+    }
+
+    private boolean isEventBusRegisted(Object subscribe) {
+        return EventBus.getDefault().isRegistered(subscribe);
+    }
+
+    public void registerEventBus(Object subscribe) {
+        if (!isEventBusRegisted(subscribe)) {
+            EventBus.getDefault().register(subscribe);
+        }
+    }
+
+    public void unregisterEventBus(Object subscribe) {
+        if (isEventBusRegisted(subscribe)) {
+            EventBus.getDefault().unregister(subscribe);
+        }
     }
 
     protected <A extends Activity> A getParentActivity(){

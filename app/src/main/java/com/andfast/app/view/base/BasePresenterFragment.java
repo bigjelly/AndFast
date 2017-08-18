@@ -11,7 +11,9 @@ import com.andfast.app.presenter.base.BasePresenter;
  */
 
 public abstract class BasePresenterFragment<P extends BasePresenter> extends BaseFragment {
+
     protected P mvpPresenter;
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         if (mvpPresenter == null) mvpPresenter = createPresenter();

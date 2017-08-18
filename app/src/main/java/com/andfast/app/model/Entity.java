@@ -5,5 +5,5 @@ package com.andfast.app.model;
  */
 
 public class Entity extends Base{
-
+    public int eventCode;
 }
