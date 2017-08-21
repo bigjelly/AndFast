@@ -7,11 +7,15 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.andfast.app.R;
+import com.andfast.app.model.Entity;
 import com.andfast.app.util.LogUtils;
 import com.andfast.app.util.StorageUtils;
 import com.andfast.app.view.base.BaseFragment;
 import com.andfast.app.view.common.activity.WebViewActivity;
 import com.andfast.app.view.widget.NWebView;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created by mby on 17-7-31.
@@ -67,5 +71,22 @@ public class MeFragment extends BaseFragment {
             mWebView.stopLoading();
             mWebView.destroy();
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventTest(Entity entity){
+        LogUtils.i(TAG,"entity.eventCode -->"+entity.eventCode);
+    }
+
+    @Override
+    protected void showFragmet() {
+        super.showFragmet();
+        registerEventBus(this);
+    }
+
+    @Override
+    protected void hiddenFragment() {
+        super.hiddenFragment();
+        unregisterEventBus(this);
     }
 }

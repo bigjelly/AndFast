@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.andfast.app.util.LogUtils;
 import com.andfast.app.util.StorageUtils;
+import com.andfast.app.util.StrHashMap;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -33,37 +34,94 @@ import java.util.regex.Pattern;
 
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
     private static final String TAG = "CrashHandler";
-
+    private static final Map<String, String> regexMap = new HashMap<String, String>();
     // CrashHandler 实例
     private static CrashHandler INSTANCE = new CrashHandler();
-
-    // 程序的 Context 对象
-    private Context mContext;
-
-    // 系统默认的 UncaughtException 处理类
-    private Thread.UncaughtExceptionHandler mDefaultHandler;
-
-    // 用来存储设备信息和异常信息
-    private Map<String, String> infos = new HashMap<String, String>();
-
     // 用来显示Toast中的信息
     private static String error = "程序错误，额，不对，我应该说，服务器正在维护中，请稍后再试";
-
-    private static final Map<String, String> regexMap = new HashMap<String, String>();
-
+    // 程序的 Context 对象
+    private Context mContext;
+    // 系统默认的 UncaughtException 处理类
+    private Thread.UncaughtExceptionHandler mDefaultHandler;
+    // 用来存储设备信息和异常信息
+    private Map<String, String> infos = new StrHashMap<String, String>();
     // 用于格式化日期,作为日志文件名的一部分
     private DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss",
             Locale.CHINA);
 
-    /** 保证只有一个 CrashHandler 实例 */
+    /**
+     * 保证只有一个 CrashHandler 实例
+     */
     private CrashHandler() {
         //
     }
 
-    /** 获取 CrashHandler 实例 ,单例模式 */
+    /**
+     * 获取 CrashHandler 实例 ,单例模式
+     */
     public static CrashHandler getInstance() {
         initMap();
         return INSTANCE;
+    }
+
+    /**
+     * 整理异常信息
+     *
+     * @param e
+     * @return
+     */
+    public static StringBuffer getTraceInfo(Throwable e) {
+        StringBuffer sb = new StringBuffer();
+
+        Throwable ex = e.getCause() == null ? e : e.getCause();
+        StackTraceElement[] stacks = ex.getStackTrace();
+        for (int i = 0; i < stacks.length; i++) {
+            if (i == 0) {
+                setError(ex.toString());
+            }
+            sb.append("class: ").append(stacks[i].getClassName())
+                    .append("; method: ").append(stacks[i].getMethodName())
+                    .append("; line: ").append(stacks[i].getLineNumber())
+                    .append(";  Exception: ").append(ex.toString() + "\n");
+        }
+        Log.d(TAG, sb.toString());
+        return sb;
+    }
+
+    /**
+     * 设置错误的提示语
+     *
+     * @param e
+     */
+    public static void setError(String e) {
+        Pattern pattern;
+        Matcher matcher;
+        for (Map.Entry<String, String> m : regexMap.entrySet()) {
+            Log.d(TAG, e + "key:" + m.getKey() + "; value:" + m.getValue());
+            pattern = Pattern.compile(m.getKey());
+            matcher = pattern.matcher(e);
+            if (matcher.matches()) {
+                error = m.getValue();
+                break;
+            }
+        }
+    }
+
+    /**
+     * 初始化错误的提示语
+     */
+    private static void initMap() {
+        regexMap.put(".*NullPointerException.*", "嘿，无中生有~Boom!");
+        regexMap.put(".*ClassNotFoundException.*", "你确定你能找得到它？");
+        regexMap.put(".*ArithmeticException.*", "我猜你的数学是体育老师教的，对吧？");
+        regexMap.put(".*ArrayIndexOutOfBoundsException.*", "恩，无下限=无节操，请不要跟我搭话");
+        regexMap.put(".*IllegalArgumentException.*", "你的出生就是一场错误。");
+        regexMap.put(".*IllegalAccessException.*", "很遗憾，你的信用卡账号被冻结了，无权支付");
+        regexMap.put(".*SecturityException.*", "死神马上降临");
+        regexMap.put(".*NumberFormatException.*", "想要改变一下自己形象？去泰国吧，包你满意");
+        regexMap.put(".*OutOfMemoryError.*", "或许你该减减肥了");
+        regexMap.put(".*StackOverflowError.*", "啊，啊，憋不住了！");
+        regexMap.put(".*RuntimeException.*", "你的人生走错了方向，重来吧");
     }
 
     /**
@@ -87,7 +145,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      */
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
-        LogUtils.i(TAG,"uncaughtException",ex);
+        LogUtils.i(TAG, "uncaughtException", ex);
         if (!handleException(ex) && mDefaultHandler != null) {
             // 如果用户没有处理则让系统默认的异常处理器来处理
             mDefaultHandler.uncaughtException(thread, ex);
@@ -116,7 +174,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         }
 
         // 收集设备参数信息
-        // collectDeviceInfo(mContext);
+        collectDeviceInfo(mContext);
         // 保存日志文件
         saveCrashInfo2File(ex);
         // 使用 Toast 来显示异常信息
@@ -169,7 +227,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      * 保存错误信息到文件中 *
      *
      * @param ex
-     * @return 返回文件名称,便于将文件传送到服务器
+     * @return 返回文件名称, 便于将文件传送到服务器
      */
     private String saveCrashInfo2File(Throwable ex) {
         StringBuffer sb = getTraceInfo(ex);
@@ -182,7 +240,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             cause = cause.getCause();
         }
         printWriter.close();
-
+        if (infos != null && infos.size() > 0){
+            sb.append(infos.toString());
+        }
         String result = writer.toString();
         sb.append(result);
         try {
@@ -208,64 +268,5 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         }
 
         return null;
-    }
-
-    /**
-     * 整理异常信息
-     * @param e
-     * @return
-     */
-    public static StringBuffer getTraceInfo(Throwable e) {
-        StringBuffer sb = new StringBuffer();
-
-        Throwable ex = e.getCause() == null ? e : e.getCause();
-        StackTraceElement[] stacks = ex.getStackTrace();
-        for (int i = 0; i < stacks.length; i++) {
-            if (i == 0) {
-                setError(ex.toString());
-            }
-            sb.append("class: ").append(stacks[i].getClassName())
-                    .append("; method: ").append(stacks[i].getMethodName())
-                    .append("; line: ").append(stacks[i].getLineNumber())
-                    .append(";  Exception: ").append(ex.toString() + "\n");
-        }
-        Log.d(TAG, sb.toString());
-        return sb;
-    }
-
-    /**
-     * 设置错误的提示语
-     * @param e
-     */
-    public static void setError(String e) {
-        Pattern pattern;
-        Matcher matcher;
-        for (Map.Entry<String, String> m : regexMap.entrySet()) {
-            Log.d(TAG, e+"key:" + m.getKey() + "; value:" + m.getValue());
-            pattern = Pattern.compile(m.getKey());
-            matcher = pattern.matcher(e);
-            if(matcher.matches()){
-                error = m.getValue();
-                break;
-            }
-        }
-    }
-
-    /**
-     * 初始化错误的提示语
-     */
-    private static void initMap() {
-        regexMap.put(".*NullPointerException.*", "嘿，无中生有~Boom!");
-        regexMap.put(".*ClassNotFoundException.*", "你确定你能找得到它？");
-        regexMap.put(".*ArithmeticException.*", "我猜你的数学是体育老师教的，对吧？");
-        regexMap.put(".*ArrayIndexOutOfBoundsException.*", "恩，无下限=无节操，请不要跟我搭话");
-        regexMap.put(".*IllegalArgumentException.*", "你的出生就是一场错误。");
-        regexMap.put(".*IllegalAccessException.*", "很遗憾，你的信用卡账号被冻结了，无权支付");
-        regexMap.put(".*SecturityException.*", "死神马上降临");
-        regexMap.put(".*NumberFormatException.*", "想要改变一下自己形象？去泰国吧，包你满意");
-        regexMap.put(".*OutOfMemoryError.*", "或许你该减减肥了");
-        regexMap.put(".*StackOverflowError.*", "啊，啊，憋不住了！");
-        regexMap.put(".*RuntimeException.*", "你的人生走错了方向，重来吧");
-
     }
 }
