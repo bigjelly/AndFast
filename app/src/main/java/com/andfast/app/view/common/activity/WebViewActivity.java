@@ -6,10 +6,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.widget.ProgressBar;
 
 import com.andfast.app.R;
 import com.andfast.app.view.base.BaseActivity;
@@ -24,13 +23,14 @@ import static com.andfast.app.R.id.fab;
 
 public class WebViewActivity extends BaseActivity implements View.OnClickListener {
     // TODO: 17-8-18  activity的缓存没有生效，后续解决这个问题
-    private static final String TAG ="WebViewActivity";
+    private static final String TAG = "WebViewActivity";
     private static final String APP_CACHE_DIRNAME = "webcache"; // web缓存目录
 
     private NWebView mWebView;
     private Toolbar mToolbar;
     private FloatingActionButton mFaButton;
     private AppBarLayout mAppBarLayout;
+    private ProgressBar mProgressBar;
 
     @Override
     protected int getContentView() {
@@ -44,6 +44,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         mToolbar = findView(R.id.toolbar);
         mWebView = findView(R.id.webview);
         mFaButton = findView(R.id.fab);
+        mProgressBar = findView(R.id.pb_progress);
         mFaButton.setOnClickListener(this);
 
         findView(R.id.toolbar_title).setVisibility(View.GONE);
@@ -58,27 +59,27 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             }
         });
 
-        mWebView.setOnScrollChangedCallback(new NWebView.OnScrollChangedCallback() {
-            @Override
-            public void onScroll(int dx, int dy) {
-                if (dy > 0) {
-                    mAppBarLayout.animate().translationY(-mToolbar.getHeight()).setInterpolator(new AccelerateInterpolator(2));
-                    mFaButton.animate()
-                            .translationY(mFaButton.getHeight()+mFaButton.getMeasuredHeight())
-                            .setInterpolator(new AccelerateInterpolator(2))
-                            .start();
-                }else {
-                    mAppBarLayout.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
-                    mFaButton.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
-                }
-            }
-        });
+//        mWebView.setOnScrollChangedCallback(new NWebView.OnScrollChangedCallback() {
+//            @Override
+//            public void onScroll(int dx, int dy) {
+//                if (dy > 0) {
+//                    mAppBarLayout.animate().translationY(-mToolbar.getHeight()).setInterpolator(new AccelerateInterpolator(2));
+//                    mFaButton.animate()
+//                            .translationY(mFaButton.getHeight()+mFaButton.getMeasuredHeight())
+//                            .setInterpolator(new AccelerateInterpolator(2))
+//                            .start();
+//                }else {
+//                    mAppBarLayout.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
+//                    mFaButton.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+//                }
+//            }
+//        });
     }
 
     @Override
     protected void initData() {
         super.initData();
-        mWebView.loadUrl("https://segmentfault.com/");//调用loadUrl方法为WebView加入链接
+        mWebView.loadUrl("https://www.baidu.com");//调用loadUrl方法为WebView加入链接 https://segmentfault.com/
 
         mWebView.setWebChromeClient(new WebChromeClient() {
             //这里设置获取到的网站title
@@ -86,6 +87,18 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             public void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title);
                 getSupportActionBar().setTitle(title);
+            }
+
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                if (newProgress == 100) {
+                    // 网页加载完成
+                    mProgressBar.setVisibility(View.GONE);
+                } else {
+                    // 加载中
+                    mProgressBar.setProgress(newProgress);
+                }
+                super.onProgressChanged(view, newProgress);
             }
         });
     }
@@ -96,14 +109,14 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     public void onBackPressed() {
         if (mWebView.canGoBack()) {
             mWebView.goBack();
-        }else {
+        } else {
             super.onBackPressed();
         }
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case fab:
                 mWebView.setScrollY(0);   //滚动到顶部
                 break;
@@ -121,6 +134,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         switch (item.getItemId()) {
             case R.id.action_refresh:
                 mWebView.reload();    //刷新当前页面
+                mProgressBar.setVisibility(View.VISIBLE);
                 return true;
             case R.id.action_clear_cache:
                 mWebView.clearCache(true);

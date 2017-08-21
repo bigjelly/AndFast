@@ -42,6 +42,12 @@ public class HomeFragment extends BaseListViewFragment<HomePresenter> implements
     }
 
     @Override
+    protected void initData() {
+        super.initData();
+        mPullRecyclerView.postRefreshing();
+    }
+
+    @Override
     public void onRefreshDetailSuccess(List<Topic> refreshDetail) {
         mAdapter.replaceAll(refreshDetail);
         mPullRecyclerView.stopRefresh();
