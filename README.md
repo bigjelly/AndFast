@@ -10,6 +10,9 @@ AndFast 是AndroidFast缩写，意思就是Android快速开发，写这个开源
 ## ViewPage页面
 ![](/screenshot/viewpage.gif)
 
+## 加载失败重试页面
+![](/screenshot/error.gif)
+
 ## WebView页面
 ![](/screenshot/webview.gif)
 
@@ -19,6 +22,9 @@ AndFast 是AndroidFast缩写，意思就是Android快速开发，写这个开源
 * [RxJava](https://github.com/ReactiveX/RxJava)
 * [Eyes(修改状态栏颜色)](https://github.com/imflyn/Eyes)
 * [EventBus](https://github.com/greenrobot/EventBus)
+
+# 数据来源
+* [CNode-android](https://github.com/shellljx/CNode-android)
 
 # 版本
 
