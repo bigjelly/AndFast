@@ -32,7 +32,7 @@ public class AndFastApplication extends Application {
         LogUtils.setLogPath(StorageUtils.getLogDir());
         LogUtils.setSaveRuntimeInfo(true);
         LogUtils.setAutoSave(true);
-        LogUtils.setDebug(true);
+        LogUtils.setDebug(BuildConfig.LOG_DEBUG);
     }
 
     public static Context getContext(){
