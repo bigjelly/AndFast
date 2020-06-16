@@ -16,10 +16,8 @@ android {
 
     // rename the apk with the version name
     applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            output.outputFile = new File(
-                    output.outputFile.parent + "/${variant.buildType.name}",
-                    "andfast-${variant.versionName}-${variant.buildType.name}.apk".toLowerCase())
+        variant.outputs.all {
+            outputFileName = "andfast-${variant.versionName}-${variant.buildType.name}.apk".toLowerCase()
         }
     }
 
@@ -36,9 +34,9 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false //混淆
+            minifyEnabled true //混淆
             zipAlignEnabled true
-            shrinkResources false // 移除无用的resource文件
+            shrinkResources true // 移除无用的resource文件
             buildConfigField "boolean", "LOG_DEBUG", "false"
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -46,9 +44,9 @@ android {
                 signingConfig signingConfigs.release
         }
         debug {
-            minifyEnabled true //混淆
-            zipAlignEnabled true
-            shrinkResources true // 移除无用的resource文件
+            minifyEnabled false //混淆
+            zipAlignEnabled false
+            shrinkResources false // 移除无用的resource文件
             buildConfigField "boolean", "LOG_DEBUG", "true"
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -59,22 +57,22 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
-    compile "com.android.support:design:$rootProject.ext.supportVersion"
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
+    implementation "com.android.support:design:$rootProject.ext.supportVersion"
+    api fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
-    compile project(path: ':pullrecyclerview')
-    compile project(path: ':statusbar')
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-    compile 'com.squareup.retrofit2:converter-scalars:2.1.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
-    compile 'io.reactivex:rxandroid:1.2.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'org.greenrobot:eventbus:3.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    implementation project(path: ':pullrecyclerview')
+    implementation project(path: ':statusbar')
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.1.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    implementation 'io.reactivex:rxandroid:1.2.0'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'org.greenrobot:eventbus:3.0.0'
 }

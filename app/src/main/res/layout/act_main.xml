@@ -21,7 +21,7 @@
         android:id="@+id/tl_main_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray"
+        android:background="@color/colorPrimary"
         app:tabBackground="?attr/selectableItemBackgroundBorderless"
         app:tabIndicatorHeight="0dp"
         app:tabMode="fixed"/>

@@ -33,6 +33,12 @@ public class VideoTopFragment extends BaseListViewFragment<HomePresenter> implem
     }
 
     @Override
+    protected void initData() {
+        super.initData();
+        mPullRecyclerView.postRefreshing();
+    }
+
+    @Override
     protected HomePresenter createPresenter() {
         return new HomePresenter(this);
     }
